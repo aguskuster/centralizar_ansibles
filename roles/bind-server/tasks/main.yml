@@ -48,6 +48,14 @@
 - name: reload named
   shell: sudo systemctl reload named
 
+- name: Firewall Rules
+  shell: |
+     sudo firewall-cmd --permanent --zone=public --add-service=dns
+     firewall-cmd --permanent --add-port=53/tcp
+     firewall-cmd --permanent --add-port=53/udp
+     sudo firewall-cmd --reload
+    
+
 
 
 
