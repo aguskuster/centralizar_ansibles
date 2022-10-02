@@ -1,0 +1,8 @@
+---
+- name: Docker playbook
+  hosts: master
+  remote_user: root
+  roles:
+      - docker
+
+...

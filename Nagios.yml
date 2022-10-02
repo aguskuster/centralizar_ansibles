@@ -1,0 +1,14 @@
+---
+- name: Nagios Server
+  hosts: master
+  remote_user: root
+  roles:
+      - nagios
+
+- name: Nagios Host
+  hosts: slave
+  remote_user: root
+  roles:
+      - nagios-host
+
+...

@@ -1,0 +1,15 @@
+$TTL 1D
+@       IN      SOA     syntech.intra. root.syntech.intra. (
+                        1       ; serial
+                        604800  ; refresh
+                        86400   ; retry
+                        2419200 ; expires
+                        604800  ; TTL negative cache
+)
+; Servidores de nombres
+        IN      NS      ns.syntech.intra.
+; Registros PTR
+15     IN      PTR     ns.syntech.intra.
+13     IN      PTR     worker1.syntech.intra.
+16     IN      PTR     master.syntech.intra.
+14     IN      PTR     worker2.syntech.intra.

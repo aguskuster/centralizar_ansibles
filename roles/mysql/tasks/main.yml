@@ -1,0 +1,46 @@
+---
+- name: Install MariaDB
+  yum: name=mariadb-server state=installed
+
+- name: Install MariaDB
+  yum: name=mariadb state=installed
+  notify:
+       - restart mariadb
+
+- name: Install Maridb packages
+  yum: name={{ mysql_packages }} state=installed
+
+
+- name: Install the Python MySQL Support Libraries
+  yum: pkg=MySQL-python state=latest
+
+- name: start mysql server and enable it on reboot
+  service: name=mariadb state=started enabled=true #debian: mysql
+
+
+- name: update mysql root password for all root accounts
+  mysql_user:
+    name=root
+    host=webservers
+    password="{{ mysql_root_db_pass }}"
+    login_user=root
+    login_password="{{ mysql_root_db_pass }}"
+    check_implicit_admin=yes
+    priv="*.*:ALL,GRANT"
+
+
+- include: secure.yml
+
+- name: Create the databases
+  mysql_db: name={{ item.name }} state=present
+  with_items: "{{ mysql_db }}"
+
+- name: Create the database users
+  mysql_user: 
+    name={{ item.name }}
+    password={{ item.pass|default("foobar") }}
+    priv={{ item.priv|default("*.*:ALL") }}
+    state=present
+  with_items: "{{ mysql_users }}"
+
+...

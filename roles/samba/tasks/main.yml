@@ -1,0 +1,56 @@
+---
+- name: Install Samba
+  yum: name={{ samba_packages }} state=installed
+
+- name: habilitar y ejecutar samba
+  service: name=smb  state=restarted enabled=true
+
+- name: Configuracion 1
+  shell: setsebool -P samba_export_all_ro=1
+
+- name: configuracion 2
+  shell: setsebool -P samba_export_all_rw=1
+
+- name: Configuracion 3
+  shell: setsebool -P samba_enable_home_dirs=1
+
+- name: Configuracion 4
+  shell: setsebool -P samba_portmapper=1
+
+- name: Create a Group
+  group:
+        name: "samba"
+        state: present
+
+- name: samba_users | adding samba users to samba groups
+  user:
+    name: back
+    groups: samba
+    append: yes
+  become: true
+
+- name: samba_users | creating samba user passwords # noqa 301 306
+  shell: "(echo 'SynTech2021'; echo 'SynTech2021') | smbpasswd -s -a 'back'"
+  become: true
+
+- name: Crear carpeta respaldo
+  file:
+      path: /home/back/BkBases
+      state: directory
+      mode: 0777
+
+- name: SambaSH
+  template: src=Samba.sh dest=/root/
+
+- name: Running sh
+  shell: sh Samba.sh
+
+- name: habilitar y ejecutar samba
+  service: name=smb  state=restarted enabled=true
+
+
+
+
+
+
+...

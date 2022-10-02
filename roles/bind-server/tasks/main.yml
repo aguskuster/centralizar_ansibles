@@ -1,0 +1,53 @@
+---
+- name: Install bind
+  yum: name={{ bind_packages }} state=installed
+  notify: 
+        - restart httpd
+  
+- name: named
+  template: src=named dest=/root/named
+
+- name: Configure named
+  shell: cat /root/named > /etc/named.conf
+  notify: 
+        - restart named
+
+- name: sysconfig named
+  template: src=sysconfignamed dest=/root/sysconfignamed
+
+- name: Configure sysconfig named
+  shell: cat /root/sysconfignamed > /etc/sysconfig/named
+  notify: 
+        - restart named
+
+- name: resolv
+  shell: echo "nameserver 192.168.1.15" >> /etc/resolv.conf
+
+- name: dominio
+  template: src=named.syntech.intra dest=/root/named.syntech.intra
+
+- name: Configure dominio
+  shell: cat /root/named.syntech.intra > /var/named/named.syntech.intra 
+
+- name: checkzone
+  shell: sudo named-checkzone syntech.intra /var/named/named.syntech.intra
+
+- name: reload named
+  shell: sudo systemctl reload named
+
+- name: dominio inver
+  template: src=named.1.168.192 dest=/root/named.1.168.192
+
+- name: Configure dominio inver
+  shell: cat /root/named.1.168.192 > /var/named/named.1.168.192
+
+- name: checkzone
+  shell: sudo named-checkzone 1.168.192 /var/named/named.1.168.192
+
+- name: reload named
+  shell: sudo systemctl reload named
+
+
+
+
+...

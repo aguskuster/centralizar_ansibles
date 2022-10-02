@@ -1,0 +1,96 @@
+---
+- include: apache.yml
+- include: iphp.yml
+
+- name: Install Epel
+  yum: name=epel-release state=installed
+
+- name: Install nagios packages
+  shell: yum --enablerepo=epel -y install nagios nagios-plugins-{ping,disk,users,procs,load,swap,ssh,http}
+
+- name: nagiosconf
+  template: src=nagios dest=/root/
+
+- name: Configure timezone
+  shell: cat /root/nagios > /etc/httpd/conf.d/nagios.conf
+
+- name: Check nagios Users
+  stat: path=/etc/nagios/passwd
+  ignore_errors: true
+  register: nagios_user_pwfile_exists
+  become: true
+
+- name: Create empty password file
+  command: touch /etc/nagios/passwd
+  args:
+    creates: /etc/nagios/passwd
+  when: nagios_user_pwfile_exists != 0
+  become: true
+
+- name: Create nagios admin user
+  command: htpasswd -b -c /etc/nagios/passwd admin  SynTech2021
+  ignore_errors: true
+  when: nagios_user_pwfile_exists != 0
+  become: true
+
+- name: habilitar y ejecutar nagios
+  service: name=nagios  state=restarted enabled=true
+
+- name: habilitar y ejecutar httpd
+  service: name=httpd  state=restarted enabled=true
+
+- name: localhost
+  template: src=localhost dest=/root/localhost
+
+- name: Configure localhost
+  shell: cat /root/localhost > /etc/nagios/objects/localhost.cfg
+
+- name: Install plugin
+  shell: yum --enablerepo=epel -y install nagios-plugins-ntp
+
+- name: commands
+  template: src=commands dest=/root/commands
+
+- name: Configure commands
+  shell: cat /root/commands > /etc/nagios/objects/commands.cfg
+
+- name: nagiosserver
+  template: src=nagiosserver dest=/root/nagiosserver
+
+- name: Configure nagiosserver
+  shell: cat /root/nagiosserver > /etc/nagios/nagios.cfg
+
+- name: Crear carpeta servers
+  file:
+      path: /etc/nagios/servers
+      state: directory
+      mode: 0750
+
+- name: chgrp
+  shell: chgrp nagios /etc/nagios/servers
+
+- name: Intall nrpe
+  shell: yum --enablerepo=epel -y install nagios-plugins-nrpe
+
+- name: node01
+  template: src=node01 dest=/root/node01
+
+- name: Configure node01
+  shell: cat /root/node01 > /etc/nagios/servers/node01.cfg
+
+- name: Install windows plugin
+  shell: yum --enablerepo=epel -y install nagios-plugins-nt
+
+- name: windows
+  template: src=windows dest=/root/windows
+
+- name: Configure windows
+  shell: cat /root/windows > /etc/nagios/servers/windows.cfg
+
+- name: habilitar y ejecutar nagios
+  service: name=nagios  state=started enabled=true
+
+
+
+
+...

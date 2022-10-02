@@ -1,0 +1,20 @@
+---
+- name: Install php
+  yum: name={{ php_packages }} state=installed
+
+- name: phpini
+  template: src=php1 dest=/root/
+
+- name: Configure timezone
+  shell: cat /root/php1 > /etc/php.ini
+
+- name: habilitar y ejecutar httpd
+  service: name=httpd  state=restarted enabled=true
+
+
+
+
+
+
+
+...

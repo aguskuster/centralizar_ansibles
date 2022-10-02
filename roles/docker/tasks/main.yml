@@ -1,0 +1,18 @@
+---
+- name: Install Utils
+  yum: name=yum-utils state=installed
+
+- name: Install curl
+  yum: name=curl state=installed
+
+- name: Add repository
+  shell: sudo yum-config-manager \
+    --add-repo \
+    https://download.docker.com/linux/centos/docker-ce.repo
+
+- name: Install docker
+  yum: name={{ docker_packages }} state=installed
+  notify: 
+        - restart docker
+
+...

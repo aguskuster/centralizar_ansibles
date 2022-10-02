@@ -1,0 +1,9 @@
+---
+php_packages:
+  - php
+  - php-mbstring
+  - php-pear
+
+nagios_packages:
+  - nagios
+  - nagios-plugins-{ping,disk,users,procs,load,swap,ssh,http}

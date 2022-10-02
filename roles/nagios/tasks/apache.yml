@@ -1,0 +1,20 @@
+---
+- name: Install httpd
+  yum: name=httpd state=installed
+
+- name: remove welcome page
+  file:
+    state: absent
+    path: "/etc/httpd/conf.d/welcome.conf"
+
+
+- name: habilitar y ejecutar httpd
+  service: name=httpd  state=started enabled=true
+
+
+
+
+
+
+
+...

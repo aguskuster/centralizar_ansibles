@@ -1,0 +1,11 @@
+---
+
+- name: rsyslog
+  shell: echo "*.* @IPDESERVIDOR:514 >> /etc/rsyslog.conf 
+
+- name: habilitar y ejecutar samba
+  service: name=rsyslog  state=restarted enabled=true
+
+
+
+...

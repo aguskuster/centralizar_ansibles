@@ -1,0 +1,21 @@
+---
+mysql_root_db_pass: root
+
+slave_host: 
+  - 192.168.1.12
+  - syntechdatabase.ddns.net
+  
+mysql_db:
+   - name: laravel
+
+mysql_users: 
+  - name: slave 
+    pass: 123
+    priv: "*.*:ALL"
+
+mysql_packages:
+  - python3
+  - libselinux-python3
+  - MySQL-python
+  - epel-release
+...

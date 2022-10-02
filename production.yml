@@ -1,0 +1,19 @@
+---
+- name: Mariadb playbook
+  hosts: webservers
+  remote_user: root
+  roles:
+      - mysql
+
+- name: Master Replication config
+  hosts: master
+  remote_user: root
+  roles:
+      - master-replic
+
+- name: Master Replication config
+  hosts: slave
+  remote_user: root
+  roles:
+      - slave-replic
+...

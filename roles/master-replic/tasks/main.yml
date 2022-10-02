@@ -1,0 +1,33 @@
+---
+
+- name: Modifying my.cnf to be master
+  template: src=configuracion.sh dest=/root/
+
+- name: Running sh
+  shell: sh configuracion.sh
+
+- name: restart mariadb
+  service: name=mariadb  state=restarted enabled=true
+
+- name: Stop Slave
+  shell: mysql -e "STOP SLAVE;"
+
+- name: Grant Replication
+  shell: mysql -e "GRANT REPLICATION SLAVE ON *.* TO 'slave'@'%' IDENTIFIED BY '123';"
+
+- name: flush privileges
+  shell: mysql -e "FLUSH PRIVILEGES;"
+
+- name: flush tables rl
+  shell: mysql -e "FLUSH TABLES WITH READ LOCK;"
+
+- name: crear binlog
+  shell: mysql -e "SHOW MASTER STATUS;" | tail -1 | cut -f1 > binlog.txt
+
+- name: crear posicion
+  shell: mysql -e "SHOW MASTER STATUS;" | tail -1 | cut -f2 > posicion.txt
+  notify:
+    - pasar archivo
+
+
+...

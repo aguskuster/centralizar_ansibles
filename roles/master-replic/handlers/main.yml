@@ -1,0 +1,6 @@
+---
+
+
+- name: pasar archivo
+  shell: scp posicion.txt binlog.txt root@167.60.219.218:~/p/
+...
