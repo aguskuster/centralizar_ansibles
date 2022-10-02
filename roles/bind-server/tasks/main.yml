@@ -1,8 +1,9 @@
 ---
 - name: Install bind
   yum: name={{ bind_packages }} state=installed
-  notify: 
-        - restart httpd
+ 
+- name: habilitar y ejecutar nagios
+  service: name=named state=started enabled=true
   
 - name: named
   template: src=named dest=/root/named
