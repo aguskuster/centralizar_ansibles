@@ -1,6 +1,9 @@
 ---
+- name: Install Epel
+  shell: yum install epel-release
+
 - name: Install Utils
-  shell: yum --enablerepo=epel -y install nrpe nagios-plugins-{ping,disk,users,procs,load,swap,ssh}
+  shell: sudo yum --enablerepo=epel -y install nrpe nagios-plugins-{ping,disk,users,procs,load,swap,ssh}
 
 - name: Install wget
   yum: name=wget state=installed
@@ -18,7 +21,7 @@
   shell: mv check_mem.pl /usr/lib64/nagios/plugins/check_mem
 
 - name: chmod mem
-  shell: chmod +x /usr/lib64/nagios/plugins/uscheck_mem 
+  shell: chmod +x /usr/lib64/nagios/plugins/check_mem
 
 - name: habilitar y ejecutar nrep
   service: name=nrpe  state=restarted enabled=true
