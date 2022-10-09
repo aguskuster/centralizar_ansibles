@@ -1,0 +1,8 @@
+---
+- name: Samba Server
+  hosts: master
+  remote_user: root
+  roles:
+      - master-replic
+
+...
