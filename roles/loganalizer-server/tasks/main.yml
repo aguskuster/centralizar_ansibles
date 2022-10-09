@@ -1,6 +1,6 @@
 ---
-- name: setenforce
-  shell: setenforce 0 > /dev/null 2>& 1
+#- name: setenforce
+#  shell: setenforce 0 > /dev/null 2>& 1
 
 - name: sed
   shell: sed -i '/SELINUX/s/enforcing/disabled/' /etc/selinux/config
