@@ -55,7 +55,7 @@
 
 - name: tar
   unarchive:
-    src: loganalyzer-4.1.10.tar.gz 
+    src: /tmp/loganalyzer-4.1.10.tar.gz 
     dest: /tmp/
     extra_opts: [--strip-components=1]
 
