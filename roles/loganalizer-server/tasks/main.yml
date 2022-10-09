@@ -26,16 +26,16 @@
   shell: rpm -ql rsyslog-mysql.x86_64
 
 - name: sql
-  shell: mysql -u root -p < /usr/share/doc/rsyslog-8.24.0/mysql-createDB.sql
+  shell: mysql -u root < /usr/share/doc/rsyslog-8.24.0/mysql-createDB.sql
 
 - name: grant 127
-  shell: mysql -u root -proot -e "grant all on Syslog.* to rsysloguser@127.0.0.1 identified by 'rsyslogpwd';"
+  shell: mysql -u root -e "grant all on Syslog.* to rsysloguser@127.0.0.1 identified by 'rsyslogpwd';"
 
 - name: grant localhost
-  shell: mysql -u root -proot -e "grant all on Syslog.* to rsysloguser@localhost identified by 'rsyslogpwd';"
+  shell: mysql -u root -e "grant all on Syslog.* to rsysloguser@localhost identified by 'rsyslogpwd';"
 
 - name: flush privileges
-  shell: mysql -u root -proot -e "flush privileges;"
+  shell: mysql -u root -e "flush privileges;"
   
 - name: rsyslog
   template: src=rsyslog dest=/root/rsyslog
@@ -46,12 +46,12 @@
         - restart rsyslog
 
 - name: wget
-  get_url: url={{ http://download.adiscon.com/loganalyzer/loganalyzer-4.1.5.tar.gz }}
+  get_url: url={{ http://download.adiscon.com/loganalyzer/loganalyzer-4.1.10.tar.gz }}
 
 
 - name: tar
   unarchive:
-    src: loganalyzer-4.1.5.tar.gz 
+    src: loganalyzer-4.1.10.tar.gz 
     dest: /root/
     extra_opts: [--strip-components=1]
 
@@ -59,7 +59,7 @@
 - name: cp loganalizer
   become: true 
   copy:
-        src: loganalyzer-4.1.5/src/
+        src: loganalyzer-4.1.10/src/
         dest: /var/www/html/log
   
 
@@ -67,7 +67,7 @@
 - name: cp contrib
   become: true 
   copy:
-        src: loganalyzer-4.1.5/contrib/*.sh
+        src: loganalyzer-4.1.10/contrib/*.sh
         dest: /var/www/html/log/ 
 
  
