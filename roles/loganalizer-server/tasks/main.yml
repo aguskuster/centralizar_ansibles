@@ -26,7 +26,7 @@
   shell: rpm -ql rsyslog-mysql.x86_64
 
 - name: sql
-  shell: mysql -uroot -p < /usr/share/doc/rsyslog-8.24.0/mysql-createDB.sql
+  shell: mysql -u root -p < /usr/share/doc/rsyslog-8.24.0/mysql-createDB.sql
 
 - name: grant 127
   shell: mysql -u root -proot -e "grant all on Syslog.* to rsysloguser@127.0.0.1 identified by 'rsyslogpwd';"
