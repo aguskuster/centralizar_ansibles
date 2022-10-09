@@ -19,6 +19,9 @@
 - name: Install rsyslog-mysql
   yum: name=rsyslog-mysql state=installed
 
+- name: Start MariaDB
+  service: name=named state=started enabled=true
+
 - name: rpm
   shell: rpm -ql rsyslog-mysql.x86_64
 
