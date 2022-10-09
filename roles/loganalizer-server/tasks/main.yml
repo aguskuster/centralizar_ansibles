@@ -58,6 +58,7 @@
     src: /tmp/loganalyzer-4.1.10.tar.gz 
     dest: /tmp/
     extra_opts: [--strip-components=1]
+    remote_src: yes
 
  
 - name: cp loganalizer
@@ -65,6 +66,7 @@
   copy:
         src: loganalyzer-4.1.10/src/
         dest: /var/www/html/log
+        remote_src: yes
   
 
  
@@ -73,6 +75,7 @@
   copy:
         src: loganalyzer-4.1.10/contrib/*.sh
         dest: /var/www/html/log/ 
+        remote_src: yes
 
  
 - name: Chmod x
