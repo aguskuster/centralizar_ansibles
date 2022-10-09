@@ -45,8 +45,6 @@
   notify: 
         - restart rsyslog
 
-- name: wget
-  get_url: url={{ http://download.adiscon.com/loganalyzer/loganalyzer-4.1.10.tar.gz }}
 
 - name: Download loganalizer
   ansible.builtin.get_url:
