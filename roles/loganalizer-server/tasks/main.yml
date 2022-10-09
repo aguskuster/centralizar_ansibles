@@ -48,11 +48,17 @@
 - name: wget
   get_url: url={{ http://download.adiscon.com/loganalyzer/loganalyzer-4.1.10.tar.gz }}
 
+- name: Download loganalizer
+  ansible.builtin.get_url:
+    url: http://download.adiscon.com/loganalyzer/loganalyzer-4.1.10.tar.gz
+    dest: /tmp/
+    mode: '0740'
+
 
 - name: tar
   unarchive:
     src: loganalyzer-4.1.10.tar.gz 
-    dest: /root/
+    dest: /tmp/
     extra_opts: [--strip-components=1]
 
  
@@ -71,22 +77,17 @@
         dest: /var/www/html/log/ 
 
  
-- name: cd
-  shell: cd /var/www/html/log
-
- 
-- name: chmod
-  shell: chmod  +x configure.sh secure.sh
-
+- name: Chmod x
+  shell: chmod +x /var/www/html/log/configure.sh secure.sh
  
 - name: configure
-  shell: ./configure.sh
+  shell: /var/www/html/log/configure.sh
 
 - name: secure
-  shell: ./secure.sh
+  shell: /var/www/html/log/secure.sh
 
 - name: chmod
-  shell: chmod 666 config.php
+  shell: chmod 666 /var/www/html/log/config.php
 
 - name: chown
   shell: chown -R apache.apache * 
