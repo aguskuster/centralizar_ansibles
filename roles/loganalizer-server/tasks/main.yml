@@ -1,9 +1,9 @@
 ---
 - name: setenforce
-  shel: setenforce 0
+  shell: setenforce 0
 
 - name: sed
-  shel: sed -i '/SELINUX/s/enforcing/disabled/' /etc/selinux/config
+  shell: sed -i '/SELINUX/s/enforcing/disabled/' /etc/selinux/config
 
 - name: Install php and httpd
   yum: name={{ loganalizer_packages }} state=installed
@@ -11,25 +11,25 @@
         - restart httpd
 
 - name: Remove index
-  shel: rm -f /var/www/html/index.php
+  shell: rm -f /var/www/html/index.php
 
 - name: Install rsyslog-mysql
   yum: name=rsyslog-mysql state=installed
 
 - name: rpm
-  shel: rpm -ql rsyslog-mysql.x86_64
+  shell: rpm -ql rsyslog-mysql.x86_64
 
 - name: sql
-  shel: mysql -uroot -p < /usr/share/doc/rsyslog-8.24.0/mysql-createDB.sql
+  shell: mysql -uroot -p < /usr/share/doc/rsyslog-8.24.0/mysql-createDB.sql
 
 - name: grant 127
-  shel: mysql -u root -proot -e "grant all on Syslog.* to rsysloguser@127.0.0.1 identified by 'rsyslogpwd';"
+  shell: mysql -u root -proot -e "grant all on Syslog.* to rsysloguser@127.0.0.1 identified by 'rsyslogpwd';"
 
 - name: grant localhost
-  shel: mysql -u root -proot -e "grant all on Syslog.* to rsysloguser@localhost identified by 'rsyslogpwd';"
+  shell: mysql -u root -proot -e "grant all on Syslog.* to rsysloguser@localhost identified by 'rsyslogpwd';"
 
 - name: flush privileges
-  shel: mysql -u root -proot -e "flush privileges;"
+  shell: mysql -u root -proot -e "flush privileges;"
   
 - name: rsyslog
   template: src=rsyslog dest=/root/rsyslog
@@ -66,24 +66,24 @@
 
  
 - name: cd
-  shel: cd /var/www/html/log
+  shell: cd /var/www/html/log
 
  
 - name: chmod
-  shel: chmod  +x configure.sh secure.sh
+  shell: chmod  +x configure.sh secure.sh
 
  
 - name: configure
-  shel: ./configure.sh
+  shell: ./configure.sh
 
 - name: secure
-  shel: ./secure.sh
+  shell: ./secure.sh
 
 - name: chmod
-  shel: chmod 666 config.php
+  shell: chmod 666 config.php
 
 - name: chown
-  shel: chown -R apache.apache * 
+  shell: chown -R apache.apache * 
 
 
 
