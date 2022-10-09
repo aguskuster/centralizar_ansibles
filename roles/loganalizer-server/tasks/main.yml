@@ -5,6 +5,9 @@
 - name: sed
   shell: sed -i '/SELINUX/s/enforcing/disabled/' /etc/selinux/config
 
+- name: Install Epel
+  yum: name=epel-release state=installed
+
 - name: Install php and httpd
   yum: name={{ loganalizer_packages }} state=installed
   notify: 
