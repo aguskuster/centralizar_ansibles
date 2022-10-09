@@ -7,5 +7,6 @@ loganalizer_packages:
   - php-mysql
   - mariadb-devel
   - mariadb-server
+  - mariadb
 
 

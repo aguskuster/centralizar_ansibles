@@ -7,7 +7,7 @@
 
 - name: Install php and httpd
   yum: name={{ loganalizer_packages }} state=installed
-     notify: 
+  notify: 
         - restart httpd
 
 - name: Remove index
@@ -36,7 +36,7 @@
 
 - name: Configure rsyslog
   shell: cat /root/rsyslog > /etc/rsyslog.conf
-       notify: 
+  notify: 
         - restart rsyslog
 
 - name: wget
@@ -52,15 +52,15 @@
  
 - name: cp loganalizer
   become: true 
-      copy:
+  copy:
         src: loganalyzer-4.1.5/src/
         dest: /var/www/html/log
   
 
  
 - name: cp contrib
-    become: true 
-      copy:
+  become: true 
+  copy:
         src: loganalyzer-4.1.5/contrib/*.sh
         dest: /var/www/html/log/ 
 
