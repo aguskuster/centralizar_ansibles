@@ -1,0 +1,8 @@
+---
+- name: Mysql Server
+  hosts: master
+  remote_user: root
+  roles:
+      - mysql
+
+...
