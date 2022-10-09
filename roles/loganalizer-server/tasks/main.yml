@@ -78,7 +78,9 @@
 
  
 - name: Chmod x
-  shell: chmod +x /var/www/html/log/configure.sh secure.sh
+  shell: | 
+          chmod +x /var/www/html/log/configure.sh secure.sh
+          chmod +x /var/www/html/log/secure.sh
  
 - name: configure
   shell: /var/www/html/log/configure.sh
