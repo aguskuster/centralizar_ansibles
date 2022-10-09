@@ -1,8 +1,8 @@
 ---
-- name: Mysql Server
+- name: Mysql Slave
   hosts: slave
   remote_user: root
   roles:
-      - mysql
+      - slave-replic
 
 ...
