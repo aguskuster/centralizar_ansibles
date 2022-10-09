@@ -57,7 +57,6 @@
   unarchive:
     src: /tmp/loganalyzer-4.1.10.tar.gz 
     dest: /tmp/
-    extra_opts: [--strip-components=1]
     remote_src: yes
 
  
@@ -65,7 +64,7 @@
   become: true 
   copy:
         src: /tmp/loganalyzer-4.1.10/src/
-        dest: /var/www/html/log
+        dest: /var/www/html/log/
         remote_src: yes
   
 
