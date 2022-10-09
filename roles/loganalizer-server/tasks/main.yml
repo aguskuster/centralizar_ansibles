@@ -72,7 +72,7 @@
 - name: cp contrib
   become: true 
   copy:
-        src: /tmp/loganalyzer-4.1.10/contrib/*.sh
+        src: /tmp/loganalyzer-4.1.10/contrib/
         dest: /var/www/html/log/ 
         remote_src: yes
 
