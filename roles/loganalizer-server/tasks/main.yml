@@ -88,8 +88,8 @@
 - name: secure
   shell: /var/www/html/log/secure.sh
 
-- name: chmod
-  shell: chmod 666 /var/www/html/log/config.php
+- name: create config.php
+  file: path=/var/www/html/log/config.php state=touch owner=root group=sys mode=0777
 
 - name: chown
   shell: chown -R apache.apache * 
