@@ -22,7 +22,7 @@
         - restart named
 
 - name: resolv
-  shell: echo "nameserver 192.168.1.15" >> /etc/resolv.conf
+  shell: echo "nameserver 192.168.50.150" >> /etc/resolv.conf
 
 - name: dominio
   template: src=named.syntech.intra dest=/root/named.syntech.intra
@@ -37,13 +37,13 @@
   shell: sudo systemctl reload named
 
 - name: dominio inver
-  template: src=named.1.168.192 dest=/root/named.1.168.192
+  template: src=named.50.168.192 dest=/root/named.50.168.192
 
 - name: Configure dominio inver
-  shell: cat /root/named.1.168.192 > /var/named/named.1.168.192
+  shell: cat /root/named.50.168.192 > /var/named/named.50.168.192
 
 - name: checkzone
-  shell: sudo named-checkzone 1.168.192 /var/named/named.1.168.192
+  shell: sudo named-checkzone 50.168.192 /var/named/named.50.168.192
 
 - name: reload named
   shell: sudo systemctl reload named

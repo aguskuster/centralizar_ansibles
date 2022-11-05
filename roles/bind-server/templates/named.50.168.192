@@ -7,9 +7,8 @@ $TTL 1D
                         604800  ; TTL negative cache
 )
 ; Servidores de nombres
-        IN      NS      ns.syntech.intra.
+        IN      NS      kubemaster.syntech.intra.
 ; Registros PTR
-15     IN      PTR     ns.syntech.intra.
-13     IN      PTR     worker1.syntech.intra.
-16     IN      PTR     master.syntech.intra.
-14     IN      PTR     worker2.syntech.intra.
+150     IN      PTR     kubemaster.syntech.intra.
+151     IN      PTR     kubeworker1.syntech.intra.
+152     IN      PTR     kubemaster.syntech.intra.

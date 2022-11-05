@@ -1,5 +1,5 @@
 $TTL    1D
-@       IN      SOA     ns.syntech.intra. root.syntech.intra. (
+@       IN      SOA     kubemaster.syntech.intra. root.syntech.intra. (
                             1       ; serial
                             604800  ; refresh
                             86400   ; retry
@@ -7,10 +7,9 @@ $TTL    1D
                             604800  ; TTL negative cache
     );
 ; Servidores de nombres
-                        IN      NS      ns.syntech.intra.
+                        IN      NS      kubemaster.syntech.intra.
 ; Registros
-ns.syntech.intra.       IN      A       192.168.1.15
-worker1.syntech.intra.  IN      A       192.168.1.13
-master.syntech.intra.   IN      A       192.168.1.16
-worker2.syntech.intra.   IN      A       192.168.1.14
+kubemaster.syntech.intra.       IN      A       192.168.50.150
+kubeworker1.syntech.intra.  IN      A       192.168.50.151
+kubeworker2.syntech.intra.   IN      A       192.168.50.152
 
