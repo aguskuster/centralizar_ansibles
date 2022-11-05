@@ -1,9 +1,4 @@
 ---
-- name: Bind Server
-  hosts: master
-  remote_user: root
-  roles:
-      - bind-server
 
 - name: Bind Host
   hosts: slave
