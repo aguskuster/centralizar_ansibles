@@ -22,7 +22,7 @@
         - restart named
 
 - name: resolv
-  shell: echo "nameserver 192.168.50.150" >> /etc/resolv.conf
+  shell: echo "nameserver 192.168.50.150" > /etc/resolv.conf
 
 - name: dominio
   template: src=named.syntech.intra dest=/root/named.syntech.intra
