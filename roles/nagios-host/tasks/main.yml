@@ -1,6 +1,6 @@
 ---
 - name: Install Epel
-  shell: yum install epel-release
+  shell: yum install epel-release -y
 
 - name: Install Utils
   shell: sudo yum --enablerepo=epel -y install nrpe nagios-plugins-{ping,disk,users,procs,load,swap,ssh}
