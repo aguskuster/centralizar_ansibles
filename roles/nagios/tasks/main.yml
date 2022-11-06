@@ -78,6 +78,12 @@
 - name: Configure node01
   shell: cat /root/node01 > /etc/nagios/servers/node01.cfg
 
+- name: node02
+  template: src=node02 dest=/root/node02
+
+- name: Configure node02
+  shell: cat /root/node02 > /etc/nagios/servers/node02.cfg
+
 - name: Install windows plugin
   shell: yum --enablerepo=epel -y install nagios-plugins-nt
 

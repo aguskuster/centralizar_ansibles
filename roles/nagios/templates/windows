@@ -2,9 +2,9 @@
 # define target hosts
 define host{
        use                      windows-server
-       host_name                fd3s
-       alias                    fd3s
-       address                  192.168.1.39
+       host_name                SERVER1
+       alias                    WINSERVER
+       address                  192.168.1.139
 }
 define hostgroup{
         hostgroup_name          windows-servers
@@ -13,56 +13,56 @@ define hostgroup{
 # for ping
 define service{
        use                      generic-service
-       host_name                fd3s
+       host_name                SERVER1
        service_description      PING
        check_command            check_ping!100.0,20%!500.0,60%
 }
 # for NSClient++ version
 define service{
         use                     generic-service
-        host_name               fd3s
+        host_name               SERVER1
         service_description     NSClient++ Version
         check_command           check_nt!CLIENTVERSION
 }
 # for uptime
 define service{
         use                     generic-service
-        host_name               fd3s
+        host_name               SERVER1
         service_description     Uptime
         check_command           check_nt!UPTIME
 }
 # for CPU load
 define service{
         use                     generic-service
-        host_name               fd3s
+        host_name               SERVER1
         service_description     CPU Load
         check_command           check_nt!CPULOAD!-l 5,80,90
 }
 # for memory usage
 define service{
         use                     generic-service
-        host_name               fd3s
+        host_name               SERVER1
         service_description     Memory Usage
         check_command           check_nt!MEMUSE!-w 80 -c 90
 }
 # for disk space
 define service{
         use                     generic-service
-        host_name               fd3s
+        host_name               SERVER1
         service_description     C:\ Drive Space
         check_command           check_nt!USEDDISKSPACE!-l c -w 80 -c 90
 }
 # for explorer
 define service{
         use                     generic-service
-        host_name               fd3s
+        host_name               SERVER1
         service_description     Explorer
         check_command           check_nt!PROCSTATE!-d SHOWALL -l Explorer.exe
 }
 # IIS
 define service{
         use                     generic-service
-        host_name               fd3s
+        host_name               SERVER1
         service_description     W3SVC
         check_command           check_nt!SERVICESTATE!-d SHOWALL -l W3SVC
 }
