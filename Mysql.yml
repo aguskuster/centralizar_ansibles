@@ -1,6 +1,6 @@
 ---
 - name: Mysql Server
-  hosts: slave
+  hosts: master
   remote_user: root
   roles:
       - mysql
