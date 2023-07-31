@@ -1,0 +1,9 @@
+---
+
+- name: BKPsh
+  template: src=scriptBKP.sh dest=/root/
+
+- name: Configure Cron
+  shell: (crontab -l ; echo "0 2 * * * /root/scriptBKP.sh") | crontab -
+
+...

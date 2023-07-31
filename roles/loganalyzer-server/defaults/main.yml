@@ -1,0 +1,12 @@
+---
+loganalizer_packages:
+  - httpd
+  - php
+  - php-gd
+  - php-mcrypt
+  - php-mysql
+  - mariadb-devel
+  - mariadb-server
+  - mariadb
+
+

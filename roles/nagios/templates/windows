@@ -4,7 +4,7 @@ define host{
        use                      windows-server
        host_name                SERVER1
        alias                    WINSERVER
-       address                  192.168.1.139
+       address                  192.168.50.139
 }
 define hostgroup{
         hostgroup_name          windows-servers

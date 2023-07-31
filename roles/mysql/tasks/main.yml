@@ -43,4 +43,9 @@
     state=present
   with_items: "{{ mysql_users }}"
 
+- name: Habilitar tráfico Mysql
+  ansible.builtin.firewalld:
+  port: 3306/tcp
+  permanent: yes
+  state: enabled
 ...

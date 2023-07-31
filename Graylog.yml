@@ -1,0 +1,14 @@
+---
+- name: Graylog Server
+  hosts: master
+  remote_user: root
+  roles:
+      - graylog-server
+
+- name: Graylog Host
+  hosts: slave
+  remote_user: root
+  roles:
+      - rsyslog
+
+...

@@ -1,0 +1,8 @@
+---
+- name: Matomo
+  hosts: slave
+  remote_user: root
+  roles:
+      - matomo
+
+...

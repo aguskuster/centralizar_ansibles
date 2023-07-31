@@ -1,0 +1,63 @@
+---
+- name: Install Epel
+  yum: name={{ graylog_packages }} state=installed
+
+- name: MongoDBRepo
+  template: src=mongodb-org-4.4.repo dest=/root/src=mongodb-org-4.4.repo
+
+- name: Configure MongoDBRepo
+  shell: cat /root/src=mongodb-org-4.4.repo > /etc/yum.repos.d/mongodb-org-4.4.repo
+
+- name: Install MongoDB
+  yum: name=mongodb-org state=installed
+  notify: 
+        - restart mongod
+
+- name: ElasticsearchRepo
+  template: src=elasticsearch.repo dest=/root/elasticsearch.repo
+
+- name: Configure ElasticsearchRepo
+  shell: cat /root/elasticsearch.repo > /etc/yum.repos.d/elasticsearch.repo
+
+- name: Install Elasticsearch
+  yum: name=elasticsearch-oss state=installed
+
+- name: ElasticsearchYML
+  template: src=elasticsearch.yml dest=/root/elasticsearch.yml
+
+- name: Configure ElasticsearchYML
+  shell: cat /root/elasticsearch.yml > /etc/elasticsearch/elasticsearch.yml
+  notify: 
+        - restart elasticsearch
+
+- name: Import GPG-KEY-elasticsearch
+  shell: rpm --import https://artifacts.elastic.co/GPG-KEY-elasticsearch
+
+- name: GraylogServerREPO
+  shell: rpm -Uvh https://packages.graylog2.org/repo/packages/graylog-4.2-repository_latest.rpm
+
+- name: Install GrayloServer
+  yum: name=graylog-server state=installed
+
+- name: ConfigureGrayLog
+  template: src=server.conf dest=/root/server.conf
+
+- name: Configure GrayLog
+  shell: cat /root/server.conf > /etc/graylog/server/server.conf
+  notify: 
+        - restart graylog-server
+
+- name: Configure Rsyslog
+  shell: echo "*.* @192.168.50.150:8514;RSYSLOG_SyslogProtocol23Format" >> /etc/rsyslog.conf
+  notify: 
+        - restart rsyslog
+
+- name: Habilitar tráfico Graylog
+  ansible.builtin.firewalld:
+    port: 8514/tcp
+    permanent: true
+    state: enabled
+
+
+...
+

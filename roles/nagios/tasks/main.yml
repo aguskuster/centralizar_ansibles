@@ -28,7 +28,7 @@
   become: true
 
 - name: Create nagios admin user
-  command: htpasswd -b -c /etc/nagios/passwd admin  SynTech2021
+  command: htpasswd -b -c /etc/nagios/passwd nagiosadmin  SynTech2023
   ignore_errors: true
   when: nagios_user_pwfile_exists != 0
   become: true
@@ -96,7 +96,29 @@
 - name: habilitar y ejecutar nagios
   service: name=nagios  state=started enabled=true
 
+- name: Habilitar servicio HTTP
+  ansible.posix.firewalld:
+    service: http
+    permanent: true
+    state: enabled
+    immediate: true
 
+- name: Habilitar tráfico Nagios
+  ansible.builtin.firewalld:
+    port: 5666/tcp
+    permanent: true
+    state: enabled
 
+- name: Habilitar servicio NRPE
+  ansible.posix.firewalld:
+    service: nrpe
+    permanent: true
+    state: enabled
+    immediate: true
 
+- name: Install Semanage
+  yum: name=policycoreutils-python state=installed
+
+- name: Configure Semanage Nagios
+  shell: semanage permissive -a nagios_unconfined_plugin_t
 ...

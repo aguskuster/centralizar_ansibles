@@ -1,0 +1,57 @@
+---
+- name: Configure remi
+  shell: yum install https://rpms.remirepo.net/enterprise/remi-release-7.rpm
+
+- name: Configure manager remi
+  shell: yum-config-manager --enable remi-php74
+
+- name: Install PHP
+  yum: name={{ php_packages }} state=installed
+
+- name: Install unzip
+  yum: name=unzip state=installed
+
+- name: Matomo config
+  template: src=matomo.conf dest=/root/matomo.conf
+
+- name: Configure nginx matomo
+  shell: cat /root/matomo.conf > /etc/nginx/conf.d/matomo.conf
+
+- name: Crear la base de datos
+  mysql_db:
+    name: matomo
+    state: present
+
+- name: Crear el usuario de la base de datos
+  mysql_user:
+    name: matomo
+    password: SynTech2023
+    priv: "matomo.*:SELECT,INSERT,UPDATE,DELETE,CREATE,INDEX,DROP,ALTER,CREATE TEMPORARY TABLES,LOCK TABLES"
+    host: localhost
+
+- name: Descargar Matomo zip
+  get_url:
+    url: https://builds.matomo.org/matomo.zip
+    dest: /tmp/matomo.zip
+
+- name: Descomprimir Matomo
+  shell: unzip /tmp/matomo.zip -d /var/www/html/
+
+- name: Otorgar permisos matomo
+  shell: chmod -R 777 /var/www/html
+
+- name: Definir dueño matomo
+  shell: chown -R apache:apache /var/www/html/
+
+- name: habilitar y ejecutar httpd
+  service: name=httpd  state=started enabled=true
+
+- name: Habilitar servicio HTTP
+  ansible.posix.firewalld:
+    service: http
+    permanent: true
+    state: enabled
+    immediate: true
+
+...
+

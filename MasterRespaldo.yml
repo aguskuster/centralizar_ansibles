@@ -1,0 +1,8 @@
+---
+- name: Master Respaldo
+  hosts: master
+  remote_user: root
+  roles:
+      - respaldo-master
+      
+...

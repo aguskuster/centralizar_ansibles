@@ -2,7 +2,7 @@
 - name: Install bind
   yum: name={{ bind_packages }} state=installed
  
-- name: habilitar y ejecutar nagios
+- name: habilitar y ejecutar named
   service: name=named state=started enabled=true
   
 - name: named

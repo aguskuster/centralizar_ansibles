@@ -1,0 +1,4 @@
+---
+- import_playbook: playbooks-kubernetes/configure_worker_nodes.yml
+---
+- import_playbook: playbooks-kubernetes/configure_environment.yml

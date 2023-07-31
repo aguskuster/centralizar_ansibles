@@ -1,0 +1,12 @@
+---
+graylog_packages:
+  - epel-release
+  - vim
+  - pwgen
+  - java-11-openjdk
+  - java-11-openjdk-devel
+  - curl
+  - wget
+  - vim
+
+...

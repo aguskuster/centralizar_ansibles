@@ -1,0 +1,11 @@
+---
+
+- name: rsyslog
+  shell: echo "*.* @192.168.50.152:514" >> /etc/rsyslog.conf 
+
+- name: habilitar y ejecutar rsyslog
+  service: name=rsyslog  state=restarted enabled=true
+
+
+
+...

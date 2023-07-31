@@ -1,0 +1,54 @@
+---
+- hosts: kubernetes-master-nodes
+  become_user: root
+  vars_files:
+  - env_variables 
+  tasks:
+  
+  - name: Create deployment vuejs-sitio
+    shell: kubectl create deployment --image akuster/vuejs-sitio-actions vuejs-sitio-actions
+
+  - name: Create deployment vuejs-backoffice
+    shell: kubectl create deployment --image akuster/vuejs-backoffice-actions vuejs-backoffice-actions
+
+  - name: Create deployment laravel-backoffice
+    shell: kubectl create deployment --image akuster/laravel-backoffice-actions laravel-backoffice-actions
+
+  - name: Create deployment laravel-sitio
+    shell: kubectl create deployment --image akuster/laravel-sitio-actions laravel-sitio-actions
+
+  - name: Create service vuejs-sitio
+    shell: kubectl create service clusterip vuejs-sitio-actions --tcp=80:80
+
+  - name: Create service vuejs-backoffice
+    shell: kubectl create service clusterip vuejs-backoffice-actions --tcp=80:80
+
+  - name: Create service laravel-sitio
+    shell: kubectl expose deploy laravel-sitio-actions --type=LoadBalancer --port=8001 --target-port=8000 --name=laravel-sitio-actions
+
+  - name: Create service laravel-backoffice
+    shell: kubectl expose deploy laravel-backoffice-actions --type=LoadBalancer --port=8000 --target-port=8000 --name=laravel-backoffice-actions
+  
+  - name: Expose laravel-sitio
+    shell: kubectl patch svc laravel-sitio-actions -p '{"spec": {"type": "LoadBalancer", "externalIPs":["192.168.50.150"]}}'
+
+  - name: Expose laravel-backoffice
+    shell: kubectl patch svc laravel-backoffice-actions -p '{"spec": {"type": "LoadBalancer", "externalIPs":["192.168.50.150"]}}'
+
+  - name: Install ingress
+    shell: kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/nginx-0.26.1/deploy/static/mandatory.yaml
+
+  - name: Configure ingress
+    shell: kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/nginx-0.26.1/deploy/static/provider/cloud-generic.yaml
+
+  - name: Expose ingress
+    shell: kubectl patch svc ingress-nginx --namespace=ingress-nginx -p '{"spec": {"type": "LoadBalancer", "externalIPs":["192.168.50.150"]}}'
+
+  - name: Create ingress
+    copy: src=ingress.yaml dest=/home/ingress.yaml
+
+  - name: Apply ingress
+    shell: kubectl apply -f ingress.yaml
+
+
+...

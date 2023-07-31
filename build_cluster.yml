@@ -1,6 +1,6 @@
 ---
-- import_playbook: playbooks/basic_package.yml
-- import_playbook: playbooks/Install_docker.yml
-- import_playbook: playbooks/prerequisites.yml
-- import_playbook: playbooks/setting_up_nodes.yml
-- import_playbook: playbooks/configure_master_node.yml
+- import_playbook: playbooks-kubernetes/basic_package.yml
+- import_playbook: playbooks-kubernetes/Install_docker.yml
+- import_playbook: playbooks-kubernetes/prerequisites.yml
+- import_playbook: playbooks-kubernetes/setting_up_nodes.yml
+- import_playbook: playbooks-kubernetes/configure_master_node.yml

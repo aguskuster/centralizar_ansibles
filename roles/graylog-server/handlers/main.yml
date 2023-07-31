@@ -1,0 +1,14 @@
+---
+- name: restart mongod
+  service: name=mongod  state=restarted enabled=true
+
+- name: restart elasticsearch
+  service: name=elasticsearch  state=restarted enabled=true
+
+- name: restart graylog-server
+  service: name=graylog-server  state=restarted enabled=true
+
+- name: restart rsyslog
+  service: name=rsyslog  state=restarted enabled=true
+
+...

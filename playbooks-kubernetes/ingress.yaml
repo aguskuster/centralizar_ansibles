@@ -1,0 +1,21 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: vue-ingress
+spec:
+  rules:
+    
+host: vue-backoffice.syntech.intra
+    http:
+      paths:
+path: /
+        backend:
+          serviceName: vuejs-backoffice-actions
+          servicePort: 8080
+host: vue-sitio.syntech.intra
+http:
+  paths:
+path: /
+    backend:
+      serviceName: vuejs-sitio-actions
+      servicePort: 8080
