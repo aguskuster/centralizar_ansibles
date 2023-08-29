@@ -1,8 +1,0 @@
----
-- name: Kubernetes Server
-  hosts: master
-  remote_user: root
-  roles:
-      - kubernetes-server
-
-...

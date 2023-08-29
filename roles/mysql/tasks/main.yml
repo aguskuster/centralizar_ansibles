@@ -45,7 +45,10 @@
 
 - name: Habilitar tráfico Mysql
   ansible.builtin.firewalld:
-  port: 3306/tcp
-  permanent: yes
-  state: enabled
+    port: 3306/tcp
+    permanent: yes
+    state: enabled
+
+- name: Reload firewalld
+  shell: firewall-cmd --reload
 ...

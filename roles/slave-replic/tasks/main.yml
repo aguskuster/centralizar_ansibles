@@ -10,10 +10,10 @@
 - name: Stop Slave
   shell: mysql -e "STOP SLAVE;"
 
-- shell: cat "/root/p/binlog.txt"
+- shell: cat "/root/binlog.txt"
   register: binlog
 
-- shell: cat "/root/p/posicion.txt"
+- shell: cat "/root/posicion.txt"
   register: posicion
 
 - name: Grant Replication

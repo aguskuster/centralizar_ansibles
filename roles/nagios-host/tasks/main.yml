@@ -39,6 +39,9 @@
     state: enabled
     immediate: true
 
+- name: Reload firewalld
+  shell: firewall-cmd --reload
+
 - name: Install Semanage
   yum: name=policycoreutils-python state=installed
 

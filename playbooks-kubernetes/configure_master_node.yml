@@ -23,7 +23,7 @@
 
   - name: Habilitar tráfico Kubernetes
     ansible.builtin.firewalld:
-    port: 6443/tcp
-    permanent: yes
-    state: enabled
+     port: 6443/tcp
+     permanent: yes
+     state: enabled
 

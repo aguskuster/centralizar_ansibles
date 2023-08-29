@@ -54,9 +54,12 @@
 
 - name: Habilitar tráfico Graylog
   ansible.builtin.firewalld:
-    port: 8514/tcp
+    port: 8514/udp
     permanent: true
     state: enabled
+
+- name: Reload Firewalld
+  shell: firewall-cmd --reload
 
 
 ...

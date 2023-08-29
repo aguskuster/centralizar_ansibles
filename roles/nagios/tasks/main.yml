@@ -107,7 +107,7 @@
   ansible.builtin.firewalld:
     port: 5666/tcp
     permanent: true
-    state: enabled
+    state: enabled	
 
 - name: Habilitar servicio NRPE
   ansible.posix.firewalld:
@@ -116,9 +116,43 @@
     state: enabled
     immediate: true
 
+- name: Reload firewalld
+  shell: firewall-cmd --reload
+
 - name: Install Semanage
   yum: name=policycoreutils-python state=installed
 
 - name: Configure Semanage Nagios
   shell: semanage permissive -a nagios_unconfined_plugin_t
+
+- name: Install nrpe client
+  yum: name=nrpe state=installed
+
+- name: Install wget
+  yum: name=wget state=installed
+
+- name: plugin memory
+  shell: wget https://raw.githubusercontent.com/justintime/nagios-plugins/master/check_mem/check_mem.pl
+
+- name: Configure nrpe
+  shell: echo "command[check_mem]=/usr/lib64/nagios/plugins/check_mem  -f -w 20 -c 10" >> /etc/nagios/nrpe.cfg
+
+- name: mv mem
+  shell: mv check_mem.pl /usr/lib64/nagios/plugins/check_mem
+
+- name: chmod mem
+  shell: chmod +x /usr/lib64/nagios/plugins/check_mem
+
+- name: habilitar y ejecutar nrep
+  service: name=nrpe  state=restarted enabled=true
+
+- name: Configure selinux Mem
+  shell: chcon -t nagios_unconfined_plugin_exec_t /usr/lib64/nagios/plugins/check_mem
+
+- name: Configure selinux U Mem
+  shell: chcon -u system_u -t nagios_unconfined_plugin_exec_t /usr/lib64/nagios/plugins/check_mem
+
+- name: Configure Semanage NREP
+  shell: sudo semanage permissive -a nrpe_t
+
 ...

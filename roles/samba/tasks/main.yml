@@ -1,4 +1,7 @@
 ---
+- name: Firewall reload
+  shell: firewall-cmd --reload
+
 - name: Install Samba
   yum: name={{ samba_packages }} state=installed
 
@@ -47,10 +50,5 @@
 
 - name: habilitar y ejecutar samba
   service: name=smb  state=restarted enabled=true
-
-
-
-
-
 
 ...
