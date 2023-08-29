@@ -47,9 +47,12 @@
   notify: 
         - restart graylog-server
 
+- name: Configure Rsyslog File
+  template: src=90-graylog.conf dest=/root/90-graylog.conf
+
 - name: Configure Rsyslog
-  shell: echo "*.* @192.168.50.150:8514;RSYSLOG_SyslogProtocol23Format" >> /etc/rsyslog.conf
-  notify: 
+  shell: cat /root/90-graylog.conf > /etc/rsyslog.d/90-graylog.conf
+  notify:
         - restart rsyslog
 
 - name: Habilitar tráfico Graylog
