@@ -9,7 +9,7 @@ $TTL    1D
 ; Servidores de nombres
                         IN      NS      kubemaster.syntech.intra.
 ; Registros
-kubemaster.syntech.intra.       IN      A       192.168.50.150
-kubeworker1.syntech.intra.  IN      A       192.168.50.151
-kubeworker2.syntech.intra.   IN      A       192.168.50.152
+kubemaster.syntech.intra.       IN      A       192.168.200.150
+kubeworker1.syntech.intra.  IN      A       192.168.200.151
+kubeworker2.syntech.intra.   IN      A       192.168.200.152
 

@@ -27,7 +27,7 @@ ScriptAlias /nagios/cgi-bin "/usr/lib64/nagios/cgi-bin/"
 #     Allow from all
       Order deny,allow
       Deny from all
-      Allow from 127.0.0.1 192.168.50.0/24
+      Allow from 127.0.0.1 192.168.200.0/24
 
       AuthName "Nagios Access"
       AuthType Basic
@@ -58,7 +58,7 @@ Alias /nagios "/usr/share/nagios/html"
 #     Allow from all
       Order deny,allow
       Deny from all
-      Allow from 127.0.0.1 192.168.50.0/24
+      Allow from 127.0.0.1 192.168.200.0/24
 
       AuthName "Nagios Access"
       AuthType Basic

@@ -103,7 +103,7 @@ nrpe_group=nrpe
 #
 # NOTE: This option is ignored if NRPE is running under either inetd or xinetd
 
-allowed_hosts=127.0.0.1,192.168.50.152
+allowed_hosts=127.0.0.1,192.168.200.152
 
 
 

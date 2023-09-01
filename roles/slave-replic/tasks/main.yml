@@ -17,7 +17,7 @@
   register: posicion
 
 - name: Grant Replication
-  shell: mysql -e "CHANGE MASTER TO MASTER_HOST='192.168.50.150' , MASTER_USER='slave' , MASTER_PASSWORD='123' , MASTER_LOG_FILE='{{ binlog.stdout }}' , MASTER_LOG_POS={{ posicion.stdout }};"
+  shell: mysql -e "CHANGE MASTER TO MASTER_HOST='192.168.200.150' , MASTER_USER='slave' , MASTER_PASSWORD='123' , MASTER_LOG_FILE='{{ binlog.stdout }}' , MASTER_LOG_POS={{ posicion.stdout }};"
   notify:
     - start slave
 

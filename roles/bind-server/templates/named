@@ -64,7 +64,7 @@ zone "syntech.intra" IN {
 	file "named.syntech.intra";
 };
 
-zone "50.168.192.in-addr.arpa" {
+zone "200.168.192.in-addr.arpa" {
         type master;
-        file "named.50.168.192";
+        file "named.200.168.192";
 };

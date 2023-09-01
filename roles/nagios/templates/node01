@@ -2,7 +2,7 @@ define host{
     use                     linux-server
     host_name               kubeworker1.syntech.intra
     alias                   kubeworker1
-    address                 192.168.50.151
+    address                 192.168.200.151
     hostgroups              linux-servers
 }
 define service{

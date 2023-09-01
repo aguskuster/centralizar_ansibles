@@ -2,7 +2,7 @@ define host{
     use                     linux-server
     host_name               kubemaster.syntech.intra
     alias                   kubemaster
-    address                 192.168.50.150
+    address                 192.168.200.150
     hostgroups              linux-servers
 }
 define service{
