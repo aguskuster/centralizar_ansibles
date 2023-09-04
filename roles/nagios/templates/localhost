@@ -42,7 +42,7 @@ define hostgroup {
 
     hostgroup_name          linux-servers           ; The name of the hostgroup
     alias                   Linux Servers           ; Long name of the group
-    members                 localhost,kubemaster.syntech.intra,kubeworker1.syntech.intra               ; Comma separated list of hosts that belong to this group
+    members                 kubeworker2.syntech.intra               ; Comma separated list of hosts that belong to this group
 }
 
 
