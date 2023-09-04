@@ -34,5 +34,5 @@ else
     exit 2
 fi
 
-sudo rsync -av /var/log/secure /home/bkp/
-sudo rsync -av /var/log/mariadb/mariadb.log /home/bkp/
+sudo rsync -a /var/log/secure /home/bkp/
+sudo rsync -a /var/log/mariadb/mariadb.log /home/bkp/
